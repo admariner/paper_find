@@ -71,7 +71,7 @@ class Threads(threading.Thread):
 
     def __init__(self, url_list, kws, year):
         threading.Thread.__init__(self)
-        self.name = str(year) + "-" + "-".join(kws)
+        self.name = f"{str(year)}-" + "-".join(kws)
         self.url_list = url_list
         self.keywords = kws
 
@@ -94,9 +94,9 @@ if __name__ == '__main__':
     s = time.time()
 
     # 构造url列表，列表元素为列表，表示某个年份的url列表
-    url_list_list = []
-    for year_item in years:
-        url_list_list.append(concat_url(init_urls, names, year_item))
+    url_list_list = [
+        concat_url(init_urls, names, year_item) for year_item in years
+    ]
 
     # 构造线程列表
     thread_list = [Threads(url_list_list[i], keywords_, years[i]) for i in range(len(years))]
